@@ -49,5 +49,53 @@ if (isset($_GET['edit'])) {
 // Fetch all
 $payments = $conn->query("SELECT * FROM payments");
 
+//DB sample:
+
+//CREATE TABLE payments (
+    //id INT AUTO_INCREMENT PRIMARY KEY,
+    //payer VARCHAR(100),
+    //amount DECIMAL(10,2)
+//);
+
 ?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Payment Page (Full CRUD)</title>
+</head>
+<body>
+    <h2><?= $edit ? "Edit Payment ID {$edit['id']}" : "Add New Payment" ?></h2>
+    <form method="POST">
+        <input type="hidden" name="id" value="<?= $edit['id'] ?? '' ?>">
+        <input type="text" name="payer" placeholder="Payer Name" required value="<?= $edit['payer'] ?? '' ?>">
+        <input type="number" name="amount" placeholder="Amount" required value="<?= $edit['amount'] ?? '' ?>">
+        <button type="submit" name="<?= $edit ? 'update' : 'add' ?>"><?= $edit ? 'Update' : 'Add' ?></button>
+        <?php if ($edit): ?>
+            <a href="PaymentPage.php">Cancel</a>
+        <?php endif; ?>
+    </form>
+
+    <h2>All Payments</h2>
+    <table border="1" cellpadding="6">
+        <tr><th>ID</th><th>Payer</th><th>Amount</th><th>Actions</th></tr>
+        <?php while($row = $payments->fetch_assoc()): ?>
+        <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= htmlspecialchars($row['payer']) ?></td>
+            <td><?= $row['amount'] ?></td>
+            <td>
+                <a href="?edit=<?= $row['id'] ?>">Edit</a> |
+                <a href="?delete=<?= $row['id'] ?>" onclick="return confirm('Delete this payment?');">Delete</a>
+            </td>
+        </tr>
+        <?php endwhile; ?>
+    </table>
+</body>
+</html>
+
+
+
+
+
 
