@@ -5,6 +5,13 @@ define('DB_USERNAME', 'admin');
 define('DB_PASSWORD', 'admin1234!');
 define('DB_DATABASE', 'sample');
 
+// Connect to DB
+$conn = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_DATABASE);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+
 
 ?>
 
