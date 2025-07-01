@@ -20,6 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
     exit;
 }
 
+// Handle Update
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
+    $id = $_POST['id'];
+    $payer = $_POST['payer'];
+    $amount = $_POST['amount'];
+    $conn->query("UPDATE payments SET payer='$payer', amount='$amount' WHERE id=$id");
+    header("Location: PaymentPage.php");
+    exit;
+}
+
+
 
 
 ?>
