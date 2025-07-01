@@ -1,0 +1,7 @@
+USE sample;
+
+CREATE TABLE IF NOT EXISTS payments (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    payer VARCHAR(100) NOT NULL,
+    amount DECIMAL(10,2) NOT NULL
+);
