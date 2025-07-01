@@ -11,6 +11,15 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
+// Handle Create
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add'])) {
+    $payer = $_POST['payer'];
+    $amount = $_POST['amount'];
+    $conn->query("INSERT INTO payments (payer, amount) VALUES ('$payer', '$amount')");
+    header("Location: PaymentPage.php");
+    exit;
+}
+
 
 
 ?>
