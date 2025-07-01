@@ -30,8 +30,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update'])) {
     exit;
 }
 
+// Handle Delete
+if (isset($_GET['delete'])) {
+    $id = $_GET['delete'];
+    $conn->query("DELETE FROM payments WHERE id=$id");
+    header("Location: PaymentPage.php");
+    exit;
+}
 
+// Fetch record for editing
+$edit = null;
+if (isset($_GET['edit'])) {
+    $id = $_GET['edit'];
+    $result = $conn->query("SELECT * FROM payments WHERE id=$id");
+    $edit = $result->fetch_assoc();
+}
 
+// Fetch all
+$payments = $conn->query("SELECT * FROM payments");
 
 ?>
 
